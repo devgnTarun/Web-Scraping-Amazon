@@ -77,7 +77,7 @@ export async function generateEmailBody(product: EmailProductInfo, type: Notific
 
 const transporter =  nodemailer.createTransport({
   pool: true,
-  service: 'gmail',
+  service: 'hotmail',
   port: 2525,
   auth: {
     user: 'devtar28k@outlook.com',
