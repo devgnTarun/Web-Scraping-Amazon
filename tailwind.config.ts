@@ -9,7 +9,7 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#E43030",
+          DEFAULT: "orange",
           "orange": "#D48D3B",
           "green": "#3E9242"
         },
@@ -37,6 +37,9 @@ module.exports = {
       },
       borderRadius: {
         10: "10px"
+      },
+      screen : {
+        "xs" : "480px"
       }
     },
   },

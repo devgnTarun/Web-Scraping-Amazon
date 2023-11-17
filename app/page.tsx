@@ -11,7 +11,7 @@ export default async function Home() {
 
   return (
     <>
-      <section className="px-6 md:px-20 py-24 border-2">
+      <section className="px-6 md:px-20 py-24 border-2 overflow-hidden">
         <div className="flex max-xl:flex-col gap-16">
           <div className="flex flex-col justify-center">
             <p className="small-text">
@@ -23,7 +23,7 @@ export default async function Home() {
               />
             </p>
             <h1 className="head-text">
-              Unleash the power of <span className="text-primary">BuyingSense</span>
+              Unleash buying with<span className="text-primary"> BuyingSense</span>
             </h1>
             <p className="mt-6">
               Powerfull self-serving product, which notify you when your favourite product price comes in stock or goes to lowest year price.
@@ -35,16 +35,22 @@ export default async function Home() {
         </div>
       </section>
 
+
+      {/* main section  */}
       <section className="trending-section">
-        <h2 className="section-text">Trending</h2>
-        <div className="flex flex-wrap gap-x-8 gap-y-16">
+        <h2 className="section-text">Products</h2>
+        <div className="flex flex-wrap gap-x-8 gap-y-16  items-center justify-around">
           {
-            products?.map((product) =>  
-               <ProductCard key={product._id} product={product}/>
+            products?.map((product) =>
+              <ProductCard key={product._id} product={product} />
             )
           }
         </div>
+
+
       </section>
     </>
   )
 }
+
+

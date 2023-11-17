@@ -22,7 +22,7 @@ const ProductCard = ({product} : Props) => {
 
             <div className="flex justify-between">
                 <p className="text-black opacity-50  text-lg capitalize">
-                    {product.category}
+                    {product.category?.substring(0, 8)}..
                 </p>
                 
                 <p className="text-black text-lg font-semibold">

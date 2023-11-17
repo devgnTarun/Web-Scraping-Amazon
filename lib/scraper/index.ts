@@ -52,6 +52,7 @@ export async function scrateAmazonProduct(url: string) {
         const currency = await extractCurrency($('.a-price-symbol'));
         const discountRate = $('.savingsPercentage').text().replace(/[-%]/g, "");
         const description = await extractDescription($);
+        const category = $('.a-link-normal.a-color-tertiary').text().trim();
         const data = {
             url ,
             currency : currency || '$',
@@ -61,7 +62,7 @@ export async function scrateAmazonProduct(url: string) {
             originalPrice : Number(originalPrice),
             priceHistory :  [],
             discountRate : Number(discountRate),
-            category : 'category',
+            category : category,
             reviewsCount : 160,
             stars : 4.5,
             isOutOfStock : outOfStock,

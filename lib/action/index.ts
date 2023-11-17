@@ -13,13 +13,15 @@ export async function scarpeAndStoreProduct(productUrl: string) {
 
     try {
         await connectToDb();
-        const scrapedProduct = await scrateAmazonProduct(productUrl);
+        const convertedUrl = `${productUrl}&tag=innovativex-21`;
+
+        const scrapedProduct = await scrateAmazonProduct(convertedUrl);
 
         if (!scrapedProduct) return;
 
         let product = scrapedProduct;
         // 2.01.
-        const existProduct = await Product.findOne({ url: scrapedProduct.url });
+        const existProduct = await Product.findOne({ url: product.url });
 
         if (existProduct) {
             const updatePriceHistory: any = [
@@ -47,15 +49,15 @@ export async function scarpeAndStoreProduct(productUrl: string) {
     } catch (error: any) {
         console.log(`Error to create product : ${error.message} `)
     }
-} 
+}
 
-export async function getProductById(productId : string)  {
+export async function getProductById(productId: string) {
     try {
         await connectToDb();
 
-        const product = await Product.findOne({_id : productId});
+        const product = await Product.findOne({ _id: productId });
 
-        if(!product) return null;
+        if (!product) return null;
 
         return product;
     } catch (error) {
@@ -67,50 +69,51 @@ export async function getProducts() {
     try {
         await connectToDb();
 
-        const product = await Product.find();
+        const product = await Product.find().sort({createdAt : -1});
 
-        if(!product) return null;
-        
+        if (!product) return null;
+
         return product;
     } catch (error) {
         console.log(error)
     }
 }
 
-export async function getSimilarProduct(productId : string) {
+
+export async function getSimilarProduct(productId: string) {
     try {
         await connectToDb();
 
         const currentProduct = await Product.findById(productId);
-        if(!currentProduct) return null;
+        if (!currentProduct) return null;
 
-        const similarProducts = await Product.find({_id : {$ne : productId}}).limit(3);
-        
+        const similarProducts = await Product.find({ _id: { $ne: productId } }).limit(3);
+
         return similarProducts;
     } catch (error) {
         console.log(error)
     }
 }
 
-export async function addUserEmailToProduct (productId : string , userEmail : string) {
+export async function addUserEmailToProduct(productId: string, userEmail: string) {
     try {
         await connectToDb();
 
         const product = await Product.findById(productId);
 
-        if(!product) return false;
-        
-        const userExists = await product.users.some((user : User) => user.email === userEmail );
+        if (!product) return false;
 
-        if(!userExists) {
-            product.users.push({email : userEmail});
+        const userExists = await product.users.some((user: User) => user.email === userEmail);
+
+        if (!userExists) {
+            product.users.push({ email: userEmail });
             await product.save();
 
-            const emailContent = await generateEmailBody(product , 'WELCOME')
-           
-            await sendEmail(emailContent , [userEmail])
+            const emailContent = await generateEmailBody(product, 'WELCOME')
+
+            await sendEmail(emailContent, [userEmail])
         }
     } catch (error) {
-        
+
     }
 }
