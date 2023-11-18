@@ -74,7 +74,8 @@ export async function getProducts() {
         const product = await Product.find().sort({createdAt : -1});
 
         if (!product) return null;
-
+        
+        revalidatePath(`/product`)
         return product;
     } catch (error) {
         console.log(error)
