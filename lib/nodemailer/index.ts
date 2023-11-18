@@ -75,7 +75,7 @@ export async function generateEmailBody(product: EmailProductInfo, type: Notific
   return { subject, body };
 }
 
-const transporter =  nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
   pool: true,
   service: 'hotmail',
   port: 2525,
@@ -84,6 +84,7 @@ const transporter =  nodemailer.createTransport({
     pass: process.env.EMAIL_PASSWORD
   },
 });
+
 
 export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) => {
   try {
@@ -94,11 +95,20 @@ export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) =>
       subject: emailContent.subject
     };
 
-    await transporter.sendMail(mailOption, (err: any, info: any) => {
-      if (err) return console.log(err);
+    const sendMessage = async () => {
+      await transporter.sendMail(mailOption, (err: any, info: any) => {
+        if (err) return console.log(`${err} errror occured`);
 
-      console.log('Email Send :', info);
-    })
+        console.log('Email Send :', info);
+      });
+    }
+
+    await sendMessage();
+    // await transporter.sendMail(mailOption, (err: any, info: any) => {
+    //   if (err) return console.log(`${err} errror occured`);
+
+    //   console.log('Email Send :', info);
+    // })
 
   } catch (error) {
     console.log(error)
