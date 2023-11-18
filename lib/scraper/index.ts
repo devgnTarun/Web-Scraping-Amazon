@@ -5,7 +5,6 @@ import { extractCurrency, extractDescription, extractPrice } from "../utils";
 export async function scrateAmazonProduct(url: string) {
     if (!url) return;
 
-    // curl--proxy brd.superproxy.io: 22225 --proxy - user brd - customer - hl_a028f3ab - zone - unblocker: 4yatcmuhtdl8 - k https://lumtest.com/myip.json
 
     // Bright data creds 
     const user = String(process.env.BRIGHT_DATA_USER);
@@ -55,6 +54,7 @@ export async function scrateAmazonProduct(url: string) {
         const category = $('.a-link-normal.a-color-tertiary').text().trim();
         const data = {
             url ,
+            affilateUrl : `${url}&tag=innovativex-21`,
             currency : currency || '$',
             image : imageUrl[0],
             title,

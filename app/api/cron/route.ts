@@ -39,9 +39,11 @@ export async function GET() {
                     highestPrice: getHighestPrice(updatePriceHistory),
                     averagePrice: getAveragePrice(updatePriceHistory)
                 }
+                const convertedUrl = `${product.url}&tag=innovativex-21`;
 
                 const updatedProduct = await Product.findOneAndUpdate({
-                    url: product.url
+                    url: product.url, affilateUrl: convertedUrl
+
                 },
                     product,
                 );
@@ -50,24 +52,24 @@ export async function GET() {
 
                 const emailNotifyType = getEmailNotifType(scrapedProduct, currentProduct);
 
-                if(emailNotifyType && updatedProduct.users.lenght > 0) {
+                if (emailNotifyType && updatedProduct.users.length > 0) {
                     const productInfo = {
-                        title : updatedProduct.title,
-                        url : updatedProduct.url,
+                        title: updatedProduct.title,
+                        url: updatedProduct.affilateUrl,
                     }
 
-                    const emailContent = await generateEmailBody(productInfo , emailNotifyType);
+                    const emailContent = await generateEmailBody(productInfo, emailNotifyType);
 
-                    const userEmails = updatedProduct.users.map((user : any) => user.email);
+                    const userEmails = updatedProduct.users.map((user: any) => user.email);
 
                     await sendEmail(emailContent, userEmails);
                 }
                 return updatedProduct;
             })
         )
-            return NextResponse.json({
-                message : 'Ok', data : updateProducts
-            })
+        return NextResponse.json({
+            message: 'Ok', data: updateProducts
+        })
 
     } catch (error) {
         console.log(`Got an error : ${error}`)

@@ -9,7 +9,7 @@ export type PriceHistoryItem = {
   export type Product = {
     _id?: string;
     url: string;
-    affilateUrl : string,
+    affilateUrl : string;
     currency: string;
     image: string;
     title: string;
