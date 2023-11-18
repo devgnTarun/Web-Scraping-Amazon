@@ -47,7 +47,8 @@ export async function scarpeAndStoreProduct(productUrl: string) {
         );
 
         revalidatePath(`/product/${newProduct._id}`);
-        revalidatePath(`/product`)
+        revalidatePath('/' , 'page')
+        revalidatePath('/product' , 'page')
     } catch (error: any) {
         console.log(`Error to create product : ${error.message} `)
     }
@@ -74,8 +75,9 @@ export async function getProducts() {
         const product = await Product.find().sort({createdAt : -1});
 
         if (!product) return null;
-        
-        revalidatePath(`/product`)
+
+        revalidatePath('/' , 'page')
+        revalidatePath('/product' , 'page')
         return product;
     } catch (error) {
         console.log(error)
