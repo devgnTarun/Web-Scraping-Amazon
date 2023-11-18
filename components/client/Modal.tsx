@@ -102,7 +102,7 @@ const Modal = ({ productId }: Props) => {
                                         />
                                         <input type="email" required id='email' placeholder='Enter Your Email!' className='dialog-input' value={email} onChange={(e) => setEmail(e.target.value)} />
                                     </div>
-                                    <button  type='submit' className="dialog-btn">
+                                    <button type='submit' className="dialog-btn">
                                         {isLoading ? 'Sending...' : 'Track'}
                                     </button>
                                 </form>

@@ -105,16 +105,17 @@ export async function addUserEmailToProduct(productId: string, userEmail: string
         await connectToDb();
 
         const product = await Product.findById(productId);
-
+    
         if (!product) return false;
 
         const userExists = await product.users.some((user: User) => user.email === userEmail);
 
-        if (!userExists) {
-            product.users.push({ email: userEmail });
+        if (!userExists === true) {
+            await product.users.push({ email: userEmail });
             await product.save();
 
-            const emailContent = await generateEmailBody(product, 'WELCOME')
+
+            const emailContent = await generateEmailBody(product, 'WELCOME');
 
             await sendEmail(emailContent, [userEmail])
         }
