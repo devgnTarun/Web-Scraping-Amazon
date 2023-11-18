@@ -151,7 +151,7 @@ const page = async ({ params: { id } }: Props) => {
                 </div>
                 <button className="btn w-fit mx-auto flex items-center justify-center gap-3 min-w-[200px]">
                     <Image src='/assets/icons/bag.svg' alt='bag' width={22} height={22}/>
-                    <Link target="_blank" href={product.url} className="text-base text-white">
+                    <Link target="_blank" href={product.affilateUrl  ||product.url} className="text-base text-white">
                         Buy Now
                     </Link>
                 </button> 

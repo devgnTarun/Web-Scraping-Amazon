@@ -1,6 +1,6 @@
 "use server"
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { connectToDb } from "../db";
 import Product from "../models/product.model";
 import { scrateAmazonProduct } from "../scraper";
@@ -13,9 +13,8 @@ export async function scarpeAndStoreProduct(productUrl: string) {
 
     try {
         await connectToDb();
-        const convertedUrl = `${productUrl}&tag=innovativex-21`;
 
-        const scrapedProduct = await scrateAmazonProduct(convertedUrl);
+        const scrapedProduct = await scrateAmazonProduct(productUrl);
 
         if (!scrapedProduct) return;
 
@@ -38,14 +37,17 @@ export async function scarpeAndStoreProduct(productUrl: string) {
             }
         }
 
+        const convertedUrl = `${scrapedProduct.url}&tag=innovativex-21`;
+
         const newProduct = await Product.findOneAndUpdate({
-            url: scrapedProduct.url
+            url: scrapedProduct.url, affilateUrl : convertedUrl
         },
             product,
             { upsert: true, new: true }
         );
 
         revalidatePath(`/product/${newProduct._id}`);
+        revalidatePath(`/product`)
     } catch (error: any) {
         console.log(`Error to create product : ${error.message} `)
     }
