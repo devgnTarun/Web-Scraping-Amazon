@@ -37,7 +37,7 @@ export async function scarpeAndStoreProduct(productUrl: string) {
             }
         }
 
-        const convertedUrl = `${scrapedProduct.url}&tag=innovativex-21`;
+        const convertedUrl = `${scrapedProduct.url}&tag=buying-sense-21`;
 
         const newProduct = await Product.findOneAndUpdate({
             url: scrapedProduct.url, affilateUrl : convertedUrl
