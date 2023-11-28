@@ -6,7 +6,6 @@ const chatId = -1001750751576;
 
 export const shareProduct = async (image: string, telegramData: String) => {
     try {
-        console.log(image);
         await bot.sendPhoto(chatId, image, { caption: telegramData });
     } catch (error) {
         console.log(error);
