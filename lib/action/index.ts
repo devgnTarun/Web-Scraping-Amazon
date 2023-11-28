@@ -7,6 +7,9 @@ import { scrateAmazonProduct } from "../scraper";
 import { getAveragePrice, getHighestPrice, getLowestPrice } from "../utils";
 import { User } from "@/types";
 import { generateEmailBody, sendEmail } from "../nodemailer";
+import { shareProduct } from "../bot";
+import { nanoid } from "nanoid";
+import { title } from "process";
 
 export async function scarpeAndStoreProduct(productUrl: string) {
     if (!productUrl) return;
@@ -40,15 +43,29 @@ export async function scarpeAndStoreProduct(productUrl: string) {
         const convertedUrl = `${scrapedProduct.url}&tag=buying-sense-21`;
 
         const newProduct = await Product.findOneAndUpdate({
-            url: scrapedProduct.url, affilateUrl : convertedUrl
+            url: scrapedProduct.url, affilateUrl: convertedUrl
         },
             product,
             { upsert: true, new: true }
         );
 
+        //telegram forwarding
+        const shortTitle = scrapedProduct.title.length < 40 ? scrapedProduct.title : `${scrapedProduct.title.substring(0, 40)}...`
+
+        const telegramData = `
+             ${shortTitle} 
+           In Just 🔥₹${scrapedProduct.currentPrice}🔥
+           🔥🔥🔥 Buy this on amazon 🔥🔥🔥
+           https://buying-sense.vercel.app/product/${newProduct._id}
+           🔥 Loot is live 🔥 
+            Direct Amazon Url : ${convertedUrl}
+    `;
+
+        await shareProduct(scrapedProduct.image, telegramData);
+
         revalidatePath(`/product/${newProduct._id}`);
-        revalidatePath('/' , 'page')
-        revalidatePath('/product' , 'page')
+        revalidatePath('/', 'page')
+        revalidatePath('/product', 'page')
     } catch (error: any) {
         console.log(`Error to create product : ${error.message} `)
     }
@@ -72,12 +89,12 @@ export async function getProducts() {
     try {
         await connectToDb();
 
-        const product = await Product.find().sort({createdAt : -1});
+        const product = await Product.find().sort({ createdAt: -1 });
 
         if (!product) return null;
 
-        revalidatePath('/' , 'page')
-        revalidatePath('/product' , 'page')
+        revalidatePath('/', 'page')
+        revalidatePath('/product', 'page')
         return product;
     } catch (error) {
         console.log(error)
@@ -105,7 +122,7 @@ export async function addUserEmailToProduct(productId: string, userEmail: string
         await connectToDb();
 
         const product = await Product.findById(productId);
-    
+
         if (!product) return false;
 
         const userExists = await product.users.some((user: User) => user.email === userEmail);

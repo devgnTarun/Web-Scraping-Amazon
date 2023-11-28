@@ -43,3 +43,9 @@ export type PriceHistoryItem = {
     title: string;
     url: string;
   };
+
+  export type TelegramData = {
+    title : String,
+    url : String,
+    image : String
+  }
