@@ -9,7 +9,7 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "orange",
+          DEFAULT: "#282828",
           "orange": "#D48D3B",
           "green": "#3E9242"
         },
