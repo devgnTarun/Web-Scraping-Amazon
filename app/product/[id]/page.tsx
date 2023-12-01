@@ -19,7 +19,7 @@ const page = async ({ params: { id } }: Props) => {
     if (!product) redirect('/');
 
     const similarProduct = await getSimilarProduct(id)
- 
+
     return (
         <div className="product-container">
             <div className="flex gap-28 xl:flex-row flex-col">
@@ -54,7 +54,7 @@ const page = async ({ params: { id } }: Props) => {
                                 </p>
                             </div>
 
-                            <div className="p-2 bg-white-200 rounded-10">
+                            <div className="p-2 bg-white-200 rounded-10" >
                                 <Image
                                     src={'/assets/icons/bookmark.svg'}
                                     alt="bookmark"

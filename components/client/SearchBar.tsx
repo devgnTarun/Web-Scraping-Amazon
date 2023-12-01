@@ -2,6 +2,7 @@
 
 import { scarpeAndStoreProduct } from "@/lib/action"
 import { FormEvent, useState } from "react"
+import toast from "react-hot-toast"
 
 const SearchBar = () => {
 
@@ -34,10 +35,13 @@ const SearchBar = () => {
         try {
             setIsLoading(true)
             
-            const product = await scarpeAndStoreProduct(searchText);
+             await scarpeAndStoreProduct(searchText);
+            toast.success('Product Added and Shared!')
+
            
         } catch (error : any) {
-            console.log(error)
+            console.log(error);
+            toast.error('Try again!');
         } finally {
             setIsLoading(false)
         }
