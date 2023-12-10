@@ -8,7 +8,7 @@ const page = () => {
                 <input type="email" placeholder='Enter your email!' className='searchbar-input my-2 mt-8' />
                 <input type="password" placeholder='Enter you password!' name="Password" className='searchbar-input my-2' />
                 <button className="searchbar-btn w-full my-5">Login</button>
-                <Link href="/register" className='text-gray-500 py-4 text-xs'>⭐ Don't Account? Register</Link>
+                <Link href="/register" className='text-gray-500 py-4 text-xs'>⭐ Don't have Account? Register</Link>
             </form>
         </div>
     )

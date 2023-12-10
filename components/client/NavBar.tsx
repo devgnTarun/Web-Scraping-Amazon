@@ -13,8 +13,7 @@ const NavBar = () => {
         <header className='w-full'>
             <nav className='nav'>
                 <Link href={'/'} className="flex items-center gap-1">
-                    <Image src={'/assets/icons/logo.svg'} width={27} height={27} alt="logo" />
-                    <p className="nav-logo">Buying<span className="text-primary">Sense</span></p>
+                    <p style={{letterSpacing : '1px'}} className="mx-2 text-2xl font-semibold ">Buying<span className="text-primary">Sense</span></p>
                 </Link>
 
                 <div className="flex items-center gap-5">
