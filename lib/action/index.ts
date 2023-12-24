@@ -6,7 +6,7 @@ import Product from "../models/product.model";
 import { scrateAmazonProduct } from "../scraper";
 import { getAveragePrice, getHighestPrice, getLowestPrice } from "../utils";
 import { User } from "@/types";
-import { generateEmailBody, sendEmail } from "../nodemailer";
+import { generateEmailBody, sendEmail } from "../nodemailer/index";
 import { shareProduct } from "../bot";
 import { nanoid } from "nanoid";
 import { title } from "process";

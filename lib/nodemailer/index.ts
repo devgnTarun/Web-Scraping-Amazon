@@ -31,7 +31,7 @@ export async function generateEmailBody(product: EmailProductInfo, type: Notific
                 <h3>${product.title} is back in stock!</h3>
                 <p>We're excited to let you know that ${product.title} is now back in stock.</p>
                 <p>Don't miss out - <a href="${product.url}" target="_blank" rel="noopener noreferrer">buy it now</a>!</p>
-                <img src="https://i.ibb.co/pwFBRMC/Screenshot-2023-09-26-at-1-47-50-AM.png" alt="Product Image" style="max-width: 100%;" />
+                <img src="https://1000logos.net/wp-content/uploads/2016/10/Amazon-Logo-500x313.png" alt="Product Image" style="max-width: 100%;" />
               </div>
               <p>Stay tuned for more updates on ${product.title} and other products you're tracking.</p>
             </div>
@@ -95,11 +95,31 @@ export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) =>
       subject: emailContent.subject
     };
 
-    await transporter.sendMail(mailOption, (err: any, info: any) => {
-      if (err) return console.log(`${err} ...Errror occured`);
+    await new Promise((resolve, reject) => {
+      // verify connection configuration
+      transporter.verify(function (error, success) {
+        if (error) {
+          console.log(error);
+          reject(error);
+        } else {
+          console.log("Server is ready to take our messages");
+          resolve(success);
+        }
+      });
+    });
 
-      console.log('Email Send :', info);
-    })
+    await new Promise((resolve, reject) => {
+      // send mail
+      transporter.sendMail(mailOption, (err, info) => {
+        if (err) {
+          console.error(err);
+          reject(err);
+        } else {
+          console.log(info);
+          resolve(info);
+        }
+      });
+    });
 
   } catch (error) {
     console.log(error)
