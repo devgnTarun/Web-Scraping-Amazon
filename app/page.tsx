@@ -11,13 +11,13 @@ export default async function Home() {
 
   return (
     <>
-      <section className="w-full px-6 md:px-20 py-24  overflow-hidden bg-gray-100 background_img">
+      <section className="w-full px-6 md:px-20 py-24  overflow-hidden  background_img">
         <div className="w-full flex text-center">
           <div className="flex flex-col justify-center text-center w-full">
             <h1 className="head-text">
-              Automate the affialte with<span className="text-primary"> Pro value</span>
+              Automate the affialte with<span className="text-primary"> Smart Buy</span>
             </h1>
-            <p className="mt-6">
+            <p className="mt-6 text-sm text-gray-200">
               This is the powerfull tool, which convert your amazon link in affilate, and notify you on <Link className="text-orange-600" target='_blank' href='https://t.me/buying_sense'>Telegram.</Link> and notify you on emails by subscribing it.
             </p>
 

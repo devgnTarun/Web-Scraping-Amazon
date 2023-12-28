@@ -10,7 +10,7 @@ const poppins = Poppins({
 
 
 export const metadata: Metadata = {
-  title: `Buying Sense`,
+  title: `Smart Buy`,
   description: 'Real price is a platform, which helps you to notify , whenever your favourite product price goes up or it come in stock.',
 }
 

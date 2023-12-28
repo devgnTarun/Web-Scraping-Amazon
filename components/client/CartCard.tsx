@@ -44,10 +44,10 @@ const Cart = () => {
                 :
 
                 cartItems?.map((item: LocalType, index) => (
-                    <Link href={item?.amazonUrl} target='_blank' key={index} className="product_card w-[250px] flex-col items-start justify-center gap-[20px] my-[15px]  px-2 py-1 m-[10px]">
-                        <div className="w-[240px] h-[200px] overflow-hidden flex items-center justify-center mx-auto">
+                    <div key={index} className="product_card w-[250px] flex-col items-start justify-center gap-[20px] my-[15px]  px-2 py-1 m-[10px]">
+                        <Link href={item?.amazonUrl} target='_blank' className="w-[240px] h-[200px] overflow-hidden flex items-center justify-center mx-auto">
                             <Image className='w-[60%] scale_img' src={item.image} alt={item.title} width={400} height={400} />
-                        </div>
+                        </Link>
                         <div className="flex-col my-2 text-center">
                             <h1 className='text-md text-gray-900 font-semibold'>{item?.title.substring(0, 22)}..</h1>
                             <p className='text-sm mt-1'> {item?.currency} {item?.price}</p>
@@ -58,7 +58,7 @@ const Cart = () => {
                                 Remove
                             </button>
                         </div>
-                    </Link>
+                    </div>
                 ))
 
 

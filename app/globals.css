@@ -23,7 +23,7 @@
   }
 
   .head-text {
-    @apply mt-4 text-5xl leading-[72px] font-bold tracking-[-1.2px] text-gray-900;
+    @apply mt-4 text-5xl leading-[72px] font-bold tracking-[-1.2px] text-white shadow-md;
   }
 
   .section-text {
@@ -219,4 +219,21 @@
 
 .product_card:hover .scale_img {
   transform: scale(1.2);
+}
+
+.css_set {
+  display: flex;
+}
+
+@media (max-width : 480px) {
+  .css_set {
+    display: none;
+  }
+}
+
+.background_img {
+  background: linear-gradient(rgba(0, 0, 0, 0.885), rgba(0, 0, 0, 0.885)), url('../public/assets/images/bg.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

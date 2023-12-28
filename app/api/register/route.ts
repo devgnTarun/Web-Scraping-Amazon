@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function POST(request: any) {
     const { name, email, password } = await request.json();
     try {
-        const isUser = await User.findOne({email});
+        const isUser = await User.findOne({ email: { $regex: new RegExp(`^${email}$`, 'i') } });
 
         if (isUser) return NextResponse.json({ message: 'User already exists on this email!' }, { status: 403 });
 

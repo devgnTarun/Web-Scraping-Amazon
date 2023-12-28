@@ -21,6 +21,10 @@ const RegisterForm = () => {
         })
     }
 
+    if (localStorage.getItem('auth')) {
+        redirect('/')
+    }
+
     const handleClick = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
@@ -28,7 +32,11 @@ const RegisterForm = () => {
             const response = await fetch('/api/register', options);
             if (response.ok) {
                 setLoading(false);
-                return toast.success('User Registered Successfully!');
+                toast.success('User Registered Successfully! Login ');
+                setEmail('');
+                setName('');
+                setPassword('');
+                return redirect('/login')
             } else {
                 const errorData = await response.json();
                 setLoading(false);
