@@ -1,13 +1,11 @@
 import type { Metadata } from 'next'
-import { Poppins } from 'next/font/google'
+import { Syne } from 'next/font/google'
 import './globals.css'
 import NavBar from '@/components/client/NavBar'
 import { Toaster } from 'react-hot-toast'
 
-const poppins = Poppins({
-  subsets: ['latin'], weight: [
-    '300', '400', '500', '600', '700'
-  ]
+const poppins = Syne({
+  subsets: ['latin']
 })
 
 
@@ -30,7 +28,7 @@ export default function RootLayout({
           gutter={8}
           containerStyle={{}}
         />
-        <main className='mx-w-[1440px]'>
+        <main className='mx-w-[1000px] overflow-hidden mx-auto'>
           <NavBar />
           {children}
         </main>

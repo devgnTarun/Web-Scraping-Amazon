@@ -9,7 +9,7 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "orange",
+          DEFAULT: "#3E9242",
           "orange": "#D48D3B",
           "green": "#3E9242"
         },
@@ -33,13 +33,13 @@ module.exports = {
       },
       fontFamily: {
         inter: ['Inter', 'sans-serif'],
-        spaceGrotesk: ['Poppins', 'sans-serif'],
+        spaceGrotesk: ['Syne', 'sans-serif'],
       },
       borderRadius: {
         10: "10px"
       },
-      screen : {
-        "xs" : "480px"
+      screen: {
+        "xs": "480px"
       }
     },
   },

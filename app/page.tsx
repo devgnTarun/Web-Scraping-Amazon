@@ -1,55 +1,81 @@
-import Carousel from "@/components/client/Carousel";
 import SearchBar from "@/components/client/SearchBar";
-import Image from "next/image";
 import { getProducts } from "@/lib/action";
 import ProductCard from "@/components/client/ProductCard";
+import Link from "next/link";
 
 
 export default async function Home() {
 
-  const products = await getProducts();
-  
+  const products = await getProducts(6);
+
 
   return (
     <>
-      <section className="px-6 md:px-20 py-24 border-2 overflow-hidden">
-        <div className="flex max-xl:flex-col gap-16">
-          <div className="flex flex-col justify-center">
-            <p className="small-text">
-              Smart Shopping Starts Here :
-              <Image src={'/assets/icons/arrow-right.svg'}
-                alt="arror"
-                width={16}
-                height={16}
-              />
-            </p>
+      <section className="w-full px-6 md:px-20 py-24  overflow-hidden">
+        <div className="w-full flex text-center">
+          <div className="flex flex-col justify-center text-center w-full">
             <h1 className="head-text">
-              Unleash buying with<span className="text-primary"> BuyingSense</span>
+              Automate the affialte with<span className="text-primary"> Pro value</span>
             </h1>
             <p className="mt-6">
-              Powerfull self-serving product, which notify you when your favourite product price comes in stock or goes to lowest year price.
+              This is the powerfull tool, which convert your amazon link in affilate, and notify you on <Link className="text-orange-600" target='_blank' href='https://t.me/buying_sense'>Telegram.</Link> and notify you on emails by subscribing it.
             </p>
+            <div className="service_box w-[100%] mx-auto xs:mt-[40px] mt-[20px]">
+              <div className="card_box">
+                <div className="service_card">
+                  <h1 >Amazon Affilate</h1>
+                </div>
+                <div className="service_card">
+                  <h1 >Telegram bot</h1>
+                </div>
+                <div className="service_card">
+                  <h1 >Cron Job</h1>
+                </div>
+                <div className="service_card">
+                  <h1 >Next.Js Stack</h1>
+                </div>
+                <div className="service_card">
+                  <h1 >Regular emails</h1>
+                </div>
+              </div>
+              <div className="card_box">
+                <div className="service_card">
+                  <h1 >Amazon Affilate</h1>
+                </div>
+                <div className="service_card">
+                  <h1 >Telegram bot</h1>
+                </div>
+                <div className="service_card">
+                  <h1 >Cron Job</h1>
+                </div>
+                <div className="service_card">
+                  <h1 >Next.Js Stack</h1>
+                </div>
+                <div className="service_card">
+                  <h1 >Regular emails</h1>
+                </div>
+              </div>
+            </div>
             <SearchBar />
           </div>
 
-          <Carousel />
         </div>
       </section>
 
 
       {/* main section  */}
       <section className="trending-section">
-        <h2 className="section-text">Products</h2>
-        <div className="flex flex-wrap gap-x-8 gap-y-16  items-center justify-around">
+        <h2 className="section-text">Prod<span className="text-primary">ucts</span> </h2>
+        <div className="flex flex-wrap gap-x-6 gap-y-10  items-center justify-around">
           {
             products?.map((product) =>
               <ProductCard key={product._id} product={product} />
             )
           }
         </div>
+        <Link href={'/products'} className="text-white bg-green-500 px-6 py-3 text-md rounded-xl w-[170px] mx-auto text-center hover:bg-green-600 font-bold"> Explore more</Link>
 
-
-      </section>
+      </section >
     </>
   )
 }

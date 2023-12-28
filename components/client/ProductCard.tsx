@@ -2,37 +2,42 @@ import { Product } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 
-interface Props  {
-    product : Product
+interface Props {
+    product: Product
 }
 
-const ProductCard = ({product} : Props) => {
-  return (
-    <Link href={`/product/${product._id}`} className="product-card">
-        <div className="product-card_img-container">
-            <Image
-            src={product.image}
-            alt={product.title}
-            width={200} 
-            height={200}
-            className="product-card_img"/>        
-        </div>
-        <div className="flex flex-col gap3">
-            <h3 className="product-title">{product.title}</h3>
+const ProductCard = ({ product }: Props) => {
 
-            <div className="flex justify-between">
-                <p className="text-black opacity-50  text-lg capitalize">
-                    {product.category?.substring(0, 8) || 'For You'}..
-                </p>
-                
-                <p className="text-black text-lg font-semibold">
-                    <span>{product.currency}</span>
-                    <span>{product.currentPrice}</span>
-                </p>
+
+    return (
+        <Link href={`/product/${product._id}`} key={product._id} className="  xs:max-w-[90%] max-w-[350px]  xs:w-[90%] w-[350px] text-gray-900  px-[5px] py-[20px] rounded-md border-[0.3px] border-gray-100 ">
+            <div>
+                <Image src={product.image}
+                    alt={product.title}
+                    width={300}
+                    height={300}
+                    className="product-card_img" />
+                <div className="relative px-4 -mt-12  ">
+                    <div className="bg-white p-6 rounded-lg border-[0.3px] border-gray-200  ">
+                        <div className="flex items-baseline">
+                        </div>
+
+                        <h4 className="my-2 text-md font-semibold uppercase  ">{product?.title.substring(0, 18)}...</h4>
+
+                        <div className="mt-2 text-sm">
+                            <h6 className="text-lg text-gray-900 font-bold ">{product.currency} {product.currentPrice}  <span className="text-red-600 text-sm ml-2"> <strike>{product.highestPrice}</strike></span></h6>
+
+                        </div>
+                        <div className="mt-4  flex items-center justify-between">
+                            <span className="text-green-500 text-md ">{product.reviewsCount} ratings </span>
+                            <span className={`text-md ${product.isOutOfStock ? 'text-red-400' : "text-green-400"}`}>{product.isOutOfStock ? 'Out of Stock' : 'In Stock'} </span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        </div>
-    </Link>
-  )
+        </Link>
+    )
 }
 
 export default ProductCard

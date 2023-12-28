@@ -17,7 +17,7 @@ const SearchBar = () => {
                 hostName.includes('amazon.com') ||
                 hostName.includes('amazon.') ||
                 hostName.endsWith('amazon')
-            ){
+            ) {
                 return true
             }
         } catch (error) {
@@ -30,16 +30,16 @@ const SearchBar = () => {
         event.preventDefault();
 
         const isValidLink = isAmazonValidUrl(searchText)
-        if(!isValidLink) return alert('Please enter the valid amazon link!');
+        if (!isValidLink) return toast.error('Please Enter valid url!');
 
         try {
             setIsLoading(true)
-            
-             await scarpeAndStoreProduct(searchText);
+
+            await scarpeAndStoreProduct(searchText);
             toast.success('Product Added and Shared!')
 
-           
-        } catch (error : any) {
+
+        } catch (error: any) {
             console.log(error);
             toast.error('Try again!');
         } finally {
@@ -49,7 +49,7 @@ const SearchBar = () => {
 
     return (
         <form className="flex flex-wrap gap-4 mt-12" onSubmit={handleSubmit}>
-            <input value={searchText} onChange={(e) => setSearchText(e.target.value)} type="text" placeholder="Enter Product Link!" className="searchbar-input" />
+            <input value={searchText} onChange={(e) => setSearchText(e.target.value)} type="text" placeholder="Enter valid amazon url!" className="searchbar-input" />
             <button type="submit" className="searchbar-btn" disabled={searchText === ''}>
                 {isLoading ? 'Searching...' : 'Search'}
             </button>

@@ -33,7 +33,7 @@ const Modal = ({ productId }: Props) => {
 
     return (
         <>
-            <button type='button' className='btn' onClick={openBox}>
+            <button type='button' className='bg-gray-900 text-white px-6 py-3 rounded-full mb-4 block w-[130px] text-center my-5 text-sm' onClick={openBox}>
                 Track
             </button>
 

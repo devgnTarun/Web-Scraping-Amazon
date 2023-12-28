@@ -1,15 +1,30 @@
 import Modal from "@/components/client/Modal";
 import PriceInfoCard from "@/components/client/PriceInfoCard";
 import ProductCard from "@/components/client/ProductCard";
-import { getProductById , getSimilarProduct} from "@/lib/action"
+import { getProductById, getSimilarProduct } from "@/lib/action"
 import { formatNumber } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar, faChartLine, faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import { redirect } from "next/navigation";
+import ShareButton from "@/components/client/ShareButton";
+import CartButton from "@/components/client/CartButton";
 
 
 type Props = {
     params: { id: string }
+}
+
+interface ShareType {
+    url: string,
+    title: string
+}
+interface LocalType extends ShareType {
+    amazonUrl: string,
+    price: string,
+    currency: string,
+    reviews: string,
 }
 
 const page = async ({ params: { id } }: Props) => {
@@ -18,144 +33,79 @@ const page = async ({ params: { id } }: Props) => {
 
     if (!product) redirect('/');
 
-    const similarProduct = await getSimilarProduct(id)
+    const similarProduct = await getSimilarProduct(id);
+
+    const shareProduct: ShareType = {
+        url: product._id,
+        title: product?.title
+    }
+
+    const CartProduct: LocalType = {
+        url: product?.url,
+        title: product.title,
+        price: product?.price,
+        currency: product?.currency,
+        reviews: product?.reviewsCount,
+        amazonUrl: product?.affilateUrl
+    }
+
+    // Convert to a JSON-friendly format
+    const shareProductJSON = JSON.parse(JSON.stringify(shareProduct));
 
     return (
-        <div className="product-container">
-            <div className="flex gap-28 xl:flex-row flex-col">
-                <div className="product-image">
-                    <Image
-                        src={product.image}
-                        alt={product.title}
-                        width={500}
-                        height={400}
-                        className="mx-auto" />
-                </div>
+        <div className="container mx-auto p-4">
+            {/* Product Image */}
+            <Image src={product?.image} alt="Product" className="rounded-lg  w-[300px] mb-4 object-cover mx-auto" width={500} height={500} />
 
-                <div className="flex-1 flex flex-col">
-                    <div className="flex justify-between items-start gap-5 flex-wrap pb-6">
-                        <div className="flex flex-col gap-3">
-                            <p className="text-[28px] text-secondary font-semibold">
-                                {product.title}
-                            </p>
+            {/* Product Title */}
+            <h2 className="text-xl font-bold my-2 text-center">{product?.title}</h2>
 
-                            <Link href={product.url} target='_blank' className="text-black text-base opacity-50" />
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                            <div className="product-hearts">
-                                <Image
-                                    src={'/assets/icons/red-heart.svg'}
-                                    alt='heart'
-                                    width={20}
-                                    height={20} />
-                                <p className="text-base font-semibold text-[#D46F77]">
-                                    {product.reviewsCount}
-                                </p>
-                            </div>
-
-                            <div className="p-2 bg-white-200 rounded-10" >
-                                <Image
-                                    src={'/assets/icons/bookmark.svg'}
-                                    alt="bookmark"
-                                    width={20}
-                                    height={20}
-                                />
-                            </div>
-
-                            <div className="p-2 bg-white-200 rounded-10">
-                                <Image
-                                    src={'/assets/icons/share.svg'}
-                                    alt="bookmark"
-                                    width={20}
-                                    height={20}
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="product-info">
-                        <div className="flex flex-col gap-2">
-                            <p className="text-[34px] text-secondary font-bold">
-                                {product.currency} {formatNumber(product.currentPrice)}
-                            </p>
-
-                            <p className="text-[21px] text-black opacity-50 line-through">
-                                {product.currency} {formatNumber(product.originalPrice)}
-                            </p>
-                        </div>
-
-                        <div className="flex flex-col gap-4">
-                            <div className="flex gap-3 ">
-                                <div className="product-stars">
-                                    <Image src='/assets/icons/star.svg' alt='stars' width={16} height={16} />
-                                    <p className="text-sm text-primary-orange font-semibold">
-                                        {product.stars || '25'}
-                                    </p>
-                                </div>
-
-                                <div className="product-reviews">
-                                    <Image src='/assets/icons/comment.svg' alt='stars' width={16} height={16} />
-                                    <p className="text-sm text-secondary font-semibold">
-                                        {product.reviewsCount}
-                                    </p>
-                                </div>
-
-                            </div>
-                            <p className="text-sm text-black opacity-50">
-                                <span className="text-primary-green font-semibold">
-                                    93%
-                                </span> of buyers recommended this!
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* price cards  */}
-                    <div className="my-7 flex flex-col gap-5">
-                        <div className="flex flex-wrap gap-5">
-                                <PriceInfoCard
-                                title='Current Price'
-                                icon='/assets/icons/price-tag.svg'
-                                value={`${product.currency} ${formatNumber(product.currentPrice)}`}
-                                />
-                                <PriceInfoCard
-                                title='Average Price'
-                                icon='/assets/icons/chart.svg'
-                                value={`${product.currency} ${formatNumber(product.averagePrice)}`}
-                                />
-                                <PriceInfoCard
-                                title=' Lowest Price'
-                                icon='/assets/icons/arrow-down.svg'
-                                value={`${product.currency} ${formatNumber(product.lowestPrice)}`}
-                                />
-                                <PriceInfoCard
-                                title='Highest Price'
-                                icon='/assets/icons/arrow-up.svg'
-                                value={`${product.currency} ${formatNumber(product.highestPrice)}`}
-                                />
-                        </div>
-                    </div>
-                    <Modal productId={id}/>
+            {/* Buttons and Ratings */}
+            <div className="flex items-center gap-[10px] my-6 w-[90%] mx-auto">
+                <CartButton localCart={CartProduct} />
+                <ShareButton shareProducts={shareProductJSON} />
+                <div className="flex items-center ml-auto w-[130px]">
+                    <FontAwesomeIcon icon={faStar} className="text-yellow-500 mr-1 w-[25px]" />
+                    <span>{product.reviewsCount} ratings</span>
                 </div>
             </div>
 
-            <div className="flex flex-col gap-16 ">
-                <div className="flex flex-col gap-5">
-                    <h3 className="text-2xl text-secondary font-semibold">
-                        Product Description
-                    </h3>
-
-                    <div className="flex flex-col gap-4">
-                        {product?.description}
-                    </div>
+            {/* Price Section */}
+            <div className="flex items-center space-x-4 mb-4 justify-center flex-wrap gap-y-4 gap-x-8">
+                <div className="flex items-center w-[200px] h-[110px] bg-gray-200 justify-center rounded-lg border-t-2 border-gray-300">
+                    <FontAwesomeIcon icon={faChartLine} className="text-gray-500 w-[25px]" />
+                    <span className="ml-2">Highest:  {product.currency} {product.highestPrice}</span>
                 </div>
-                <button className="btn w-fit mx-auto flex items-center justify-center gap-3 min-w-[200px]">
-                    <Image src='/assets/icons/bag.svg' alt='bag' width={22} height={22}/>
-                    <Link target="_blank" href={product.affilateUrl  ||product.url} className="text-base text-white">
-                        Buy Now
-                    </Link>
-                </button> 
+                <div className="flex items-center w-[200px] h-[110px] bg-gray-200 justify-center rounded-lg border-t-2 border-gray-300">
+                    <FontAwesomeIcon icon={faChartLine} className="text-gray-500 w-[25px]" />
+                    <span className="ml-2">Lowest:  {product.currency} {product.lowestPrice} </span>
+                </div>
+                <div className="flex items-center w-[200px] h-[110px] bg-gray-200 justify-center rounded-lg border-t-2 border-gray-300">
+                    <FontAwesomeIcon icon={faChartLine} className="text-gray-500 w-[25px]" />
+                    <span className="ml-2">Average: {product.currency} ${formatNumber(product.averagePrice)}</span>
+                </div>
+                <div className="flex items-center w-[200px] h-[110px] bg-gray-200 justify-center rounded-lg border-t-2 border-gray-300">
+                    <FontAwesomeIcon icon={faDollarSign} className="text-green-500 w-[25px]" />
+                    <span className="ml-2">Current:  {product.currency} {product.currentPrice}</span>
+                </div>
             </div>
+
+            <div className="flex gap-[15px] items-center justify-center">
+                {/* Track Button */}
+                <Modal productId={id} />
+                {/* Buy Button */}
+                <Link href={product.affilateUrl || product.url} target='_blank' className="bg-gray-900 text-white px-6 py-3 rounded-full mb-4 block w-[130px] text-center my-5 text-sm">
+                    Buy Now
+                </Link>
+            </div>
+            {/* Description */}
+            <div className="my-6 w-[90%] mx-auto">
+                {/* Your product description goes here */}
+                {product?.description}
+            </div>
+
+
+
             {
                 similarProduct && similarProduct?.length > 0 && (
                     <div className="py-14 flex flex-col gap-2 w-full">
@@ -163,11 +113,10 @@ const page = async ({ params: { id } }: Props) => {
 
                         <div className="flex flex-wrap gap-10 mt-7 w-full">
                             {
-                                similarProduct.map((product) => 
-                                <ProductCard product={product} key={product._id}/>
+                                similarProduct.map((product) =>
+                                    <ProductCard product={product} key={product._id} />
                                 )
-                            }
-                        </div>
+                            }          </div>
                     </div>
                 )}
         </div>

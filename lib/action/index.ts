@@ -6,7 +6,7 @@ import Product from "../models/product.model";
 import { scrateAmazonProduct } from "../scraper";
 import { getAveragePrice, getHighestPrice, getLowestPrice } from "../utils";
 import { User } from "@/types";
-import { generateEmailBody, sendEmail } from "../nodemailer/index";
+import { generateEmailBody, sendEmail } from "../nodemailer";
 import { shareProduct } from "../bot";
 import { nanoid } from "nanoid";
 import { title } from "process";
@@ -85,14 +85,20 @@ export async function getProductById(productId: string) {
     }
 }
 
-export async function getProducts() {
+export async function getProducts(limit?: number) {
     try {
         await connectToDb();
 
+        if (limit) {
+            const product = await Product.find().sort({ createdAt: -1 }).limit(limit);
+            if (!product) return null;
+            revalidatePath('/', 'page')
+            revalidatePath('/product', 'page')
+            return product;
+        }
+
         const product = await Product.find().sort({ createdAt: -1 });
-
         if (!product) return null;
-
         revalidatePath('/', 'page')
         revalidatePath('/product', 'page')
         return product;
