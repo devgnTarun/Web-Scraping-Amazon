@@ -12,14 +12,7 @@ const RegisterForm = () => {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false)
 
-    const options = {
-        method: 'post', headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }, body: JSON.stringify({
-            name, email, password
-        })
-    }
+
 
     useEffect(() => {
         if (typeof window !== 'undefined' && localStorage.getItem('auth')) {
@@ -29,6 +22,14 @@ const RegisterForm = () => {
 
     const handleClick = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        const options = {
+            method: 'post', headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }, body: JSON.stringify({
+                name, email, password
+            })
+        }
         try {
             setLoading(true);
             const response = await fetch('/api/register', options);

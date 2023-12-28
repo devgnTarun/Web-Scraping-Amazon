@@ -10,14 +10,6 @@ const page = () => {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const options = {
-        method: 'post', headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }, body: JSON.stringify({
-            email, password
-        })
-    }
     useEffect(() => {
         if (typeof window !== 'undefined' && localStorage.getItem('auth')) {
             redirect('/');
@@ -26,6 +18,14 @@ const page = () => {
 
     const handleClick = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        const options = {
+            method: 'post', headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }, body: JSON.stringify({
+                email, password
+            })
+        }
         try {
             setLoading(true);
             const response = await fetch('/api/login', options);
