@@ -19,6 +19,7 @@ const AuthNav = () => {
         if (isLoggedIn) {
             localStorage.removeItem('auth');
             toast.success('You are logged out!');
+            window.location.reload();
             redirect('/')
         };
     };
