@@ -25,7 +25,7 @@ const ProductCard = ({ product }: Props) => {
                         <h4 className="my-2 text-md font-semibold uppercase  ">{product?.title.substring(0, 18)}...</h4>
 
                         <div className="mt-2 text-sm">
-                            <h6 className="text-lg text-gray-900 font-bold ">{product.currency} {product.currentPrice}  <span className="text-red-600 text-sm ml-2"> <strike>{product.highestPrice}</strike></span></h6>
+                            <h6 className="text-lg text-gray-900 font-bold ">{product.currency} {product.currentPrice}  <span className="text-red-600 text-sm ml-2"> <span className="line-through">{product.highestPrice}</span></span></h6>
 
                         </div>
                         <div className="mt-4  flex items-center justify-between">
