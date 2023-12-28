@@ -11,7 +11,7 @@ export default async function Home() {
 
   return (
     <>
-      <section className="w-full px-6 md:px-20 py-24  overflow-hidden">
+      <section className="w-full px-6 md:px-20 py-24  overflow-hidden bg-gray-100 background_img">
         <div className="w-full flex text-center">
           <div className="flex flex-col justify-center text-center w-full">
             <h1 className="head-text">
@@ -20,48 +20,49 @@ export default async function Home() {
             <p className="mt-6">
               This is the powerfull tool, which convert your amazon link in affilate, and notify you on <Link className="text-orange-600" target='_blank' href='https://t.me/buying_sense'>Telegram.</Link> and notify you on emails by subscribing it.
             </p>
-            <div className="service_box w-[100%] mx-auto xs:mt-[40px] mt-[20px]">
-              <div className="card_box">
-                <div className="service_card">
-                  <h1 >Amazon Affilate</h1>
-                </div>
-                <div className="service_card">
-                  <h1 >Telegram bot</h1>
-                </div>
-                <div className="service_card">
-                  <h1 >Cron Job</h1>
-                </div>
-                <div className="service_card">
-                  <h1 >Next.Js Stack</h1>
-                </div>
-                <div className="service_card">
-                  <h1 >Regular emails</h1>
-                </div>
-              </div>
-              <div className="card_box">
-                <div className="service_card">
-                  <h1 >Amazon Affilate</h1>
-                </div>
-                <div className="service_card">
-                  <h1 >Telegram bot</h1>
-                </div>
-                <div className="service_card">
-                  <h1 >Cron Job</h1>
-                </div>
-                <div className="service_card">
-                  <h1 >Next.Js Stack</h1>
-                </div>
-                <div className="service_card">
-                  <h1 >Regular emails</h1>
-                </div>
-              </div>
-            </div>
+
             <SearchBar />
           </div>
 
         </div>
       </section>
-
+      {/* infinte box  */}
+      <div className="service_box w-[100%] mx-auto xs:mt-[40px] mt-[20px]">
+        <div className="card_box">
+          <div className="service_card">
+            <h1 >Amazon Affilate</h1>
+          </div>
+          <div className="service_card">
+            <h1 >Telegram bot</h1>
+          </div>
+          <div className="service_card">
+            <h1 >Cron Job</h1>
+          </div>
+          <div className="service_card">
+            <h1 >Next.Js Stack</h1>
+          </div>
+          <div className="service_card">
+            <h1 >Regular emails</h1>
+          </div>
+        </div>
+        <div className="card_box">
+          <div className="service_card">
+            <h1 >Amazon Affilate</h1>
+          </div>
+          <div className="service_card">
+            <h1 >Telegram bot</h1>
+          </div>
+          <div className="service_card">
+            <h1 >Cron Job</h1>
+          </div>
+          <div className="service_card">
+            <h1 >Next.Js Stack</h1>
+          </div>
+          <div className="service_card">
+            <h1 >Regular emails</h1>
+          </div>
+        </div>
+      </div>
 
       {/* main section  */}
       <section className="trending-section">

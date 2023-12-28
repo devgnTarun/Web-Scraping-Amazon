@@ -25,6 +25,7 @@ interface LocalType extends ShareType {
     price: string,
     currency: string,
     reviews: string,
+    image: string
 }
 
 const page = async ({ params: { id } }: Props) => {
@@ -43,10 +44,11 @@ const page = async ({ params: { id } }: Props) => {
     const CartProduct: LocalType = {
         url: product?.url,
         title: product.title,
-        price: product?.price,
+        price: product?.currentPrice,
         currency: product?.currency,
         reviews: product?.reviewsCount,
-        amazonUrl: product?.affilateUrl
+        amazonUrl: product?.affilateUrl,
+        image: product?.image
     }
 
     // Convert to a JSON-friendly format

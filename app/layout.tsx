@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
-import { Syne } from 'next/font/google'
+import { Poppins } from 'next/font/google'
 import './globals.css'
 import NavBar from '@/components/client/NavBar'
 import { Toaster } from 'react-hot-toast'
 
-const poppins = Syne({
-  subsets: ['latin']
+const poppins = Poppins({
+  subsets: ['latin'], weight: ['300', '400', '500', '600']
 })
 
 

@@ -14,6 +14,7 @@ interface LocalType extends ShareType {
     price: string,
     currency: string,
     reviews: string,
+    image: string
 }
 
 const CartButton = ({ localCart }: { localCart: LocalType }) => {
