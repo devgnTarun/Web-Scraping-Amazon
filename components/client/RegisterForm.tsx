@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { redirect } from 'next/navigation';
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 
 
@@ -21,9 +21,11 @@ const RegisterForm = () => {
         })
     }
 
-    if (localStorage.getItem('auth')) {
-        redirect('/')
-    }
+    useEffect(() => {
+        if (typeof window !== 'undefined' && localStorage.getItem('auth')) {
+            redirect('/');
+        }
+    }, []);
 
     const handleClick = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
