@@ -27,7 +27,7 @@ export default async function Home() {
         </div>
       </section>
       {/* infinte box  */}
-      <div className="service_box w-[100%] mx-auto xs:mt-[40px] mt-[20px]">
+      <div className="service_box w-[100%] mx-auto  bg-gray-100">
         <div className="card_box">
           <div className="service_card">
             <h1 >Amazon Affilate</h1>

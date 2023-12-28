@@ -1,11 +1,5 @@
-import Image from "next/image"
 import Link from "next/link"
-import AuthNav from "./AuthNav"
-
-const navIcons = [
-    { src: '/assets/icons/black-heart.svg', alt: 'heart', link: '/loved' },
-    { src: '/assets/icons/user.svg', alt: 'user', link: '/login' },
-]
+import AuthNav from "../../app/AuthNav"
 
 
 const NavBar = () => {
