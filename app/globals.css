@@ -220,7 +220,3 @@
 .product_card:hover .scale_img {
   transform: scale(1.2);
 }
-
-.background_img {
-  background-image: url('./');
-}
