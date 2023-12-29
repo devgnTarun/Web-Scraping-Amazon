@@ -10,11 +10,11 @@ const page = () => {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        if (typeof window !== 'undefined' && localStorage.getItem('auth')) {
-            redirect('/');
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (typeof window !== 'undefined' && localStorage.getItem('auth')) {
+    //         redirect('/');
+    //     }
+    // }, []);
 
     const handleClick = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
