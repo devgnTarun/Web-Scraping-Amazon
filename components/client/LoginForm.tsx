@@ -17,7 +17,7 @@ const LoginForm = () => {
             setLoading(true);
             const response = await loginUser(email, password);
 
-            if (response.success) {
+            if (response?.success) {
                 setLoading(false);
                 toast.success('User logged in successfully!'); // Notify success
                 window.location.reload();

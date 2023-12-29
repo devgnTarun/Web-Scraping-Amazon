@@ -20,9 +20,8 @@ const RegisterForm = () => {
         try {
             setLoading(true);
             const response = await registerUser(name, email, password);
-            setLoading(false);
 
-            if (response.success) {
+            if (response?.success) {
                 setLoading(false);
                 toast.success('User Registered Successfully! Login ');
                 setEmail('');
