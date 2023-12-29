@@ -24,7 +24,8 @@ const LoginForm = () => {
                 window.location.reload();
                 redirect('/'); // Redirect as needed
             } else {
-                toast.error(response.message || 'Error occured while log in!'); // Show error message
+                toast.error(response?.message || 'Error occured while log in!'); // Show error message
+                setLoading(false);
             }
         } catch (error: any) {
             setLoading(false);
