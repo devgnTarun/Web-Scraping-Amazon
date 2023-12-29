@@ -1,5 +1,6 @@
 'use client'
 
+import { loginUser } from '@/lib/auth';
 import Link from 'next/link'
 import { redirect } from 'next/navigation';
 import { FormEvent, useEffect, useState } from 'react'
@@ -9,33 +10,30 @@ const LoginForm = () => {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
+
+
     const handleClick = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const options = {
-            method: 'post', headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }, body: JSON.stringify({
-                email, password
-            })
-        }
         try {
             setLoading(true);
-            const response = await fetch('/api/login', options);
-            if (response.ok) {
+            const response = await loginUser(email, password);
+            setLoading(false);
+
+            if (response.success) {
                 window.location.reload();
-                setLoading(false);
-                toast.success('User Registered Successfully! Login ');
-                redirect('/')
+                toast.success('User logged in successfully!'); // Notify success
+                redirect('/'); // Redirect as needed
             } else {
-                const errorData = await response.json();
-                setLoading(false);
-                return toast.error(errorData.message);
+                toast.error(response.message || 'Error occured while log in!'); // Show error message
             }
         } catch (error) {
-            return setLoading(false);
+            setLoading(false);
+            // Handle other potential errors here
         }
     }
+
+
+
     return (
         <form onSubmit={handleClick} className="xs:w-[300px] w-[400px] flex-col py-8 px-4 ">
             <input required value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder='Enter your email!' className='searchbar-input my-2 mt-8' />
