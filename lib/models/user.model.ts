@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken';
 
+
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -15,7 +16,22 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         select: false,
-    }
+    },
+    lovedProducts: [
+        {
+            productId: {
+                type: mongoose.Schema.Types.ObjectId, // Assuming product ID is stored as ObjectId
+                ref: 'Product' // Reference to the Product model
+            },
+            title: String,
+            url: String,
+            amazonUrl: String,
+            price: String,
+            currency: String,
+            reviews: String,
+            image: String
+        }
+    ]
 }, { timestamps: true })
 
 // Hashing password 
@@ -30,7 +46,7 @@ userSchema.pre("save", async function (next) {
 
 //JWT_TOKEN
 userSchema.methods.getJWTToken = function () {
-    return jwt.sign({ id: this._id }, 'somethingFishy', {
+    return jwt.sign({ id: this._id }, 'somethingfishy', {
         expiresIn: process.env.JWT_EXPIRE,
     });
 };

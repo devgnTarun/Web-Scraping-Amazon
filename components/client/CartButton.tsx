@@ -1,8 +1,8 @@
 'use client'
 
+import { addToCart } from '@/lib/cart'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
 interface ShareType {
@@ -19,28 +19,18 @@ interface LocalType extends ShareType {
 
 const CartButton = ({ localCart }: { localCart: LocalType }) => {
 
-    const [cartItems, setCartItems] = useState<LocalType[]>([]);
-
-    useEffect(() => {
-        const storedItems = localStorage.getItem('products');
-        if (storedItems) {
-            const parsedItems: LocalType[] = JSON.parse(storedItems);
-            setCartItems(parsedItems);
-        }
-    }, []);
-
-    const isProductInCart = (productId: string) => {
-        return cartItems.some(item => item.url === productId);
-    };
-    const handleStore = () => {
-        const productId = localCart.url;
-        if (!isProductInCart(productId)) {
-            const updatedCart = [...cartItems, localCart];
-            localStorage.setItem('products', JSON.stringify(updatedCart));
-            setCartItems(updatedCart);
-            toast.success('Product added to loved products');
-        } else {
-            toast.error('Product already exists in loved products');
+    const handleStore = async () => {
+        try {
+            console.log('clicked')
+            const response = await addToCart(localCart);
+            if (response?.success) {
+                toast.success('Product added to loved products!')
+            }
+            else {
+                toast.error(response?.message || 'Error occured!')
+            }
+        } catch (error: any) {
+            toast.error(error?.message);
         }
     };
 

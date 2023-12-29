@@ -42,13 +42,13 @@ const page = async ({ params: { id } }: Props) => {
     }
 
     const CartProduct: LocalType = {
-        url: product?.url,
-        title: product.title,
-        price: product?.currentPrice,
-        currency: product?.currency,
-        reviews: product?.reviewsCount,
-        amazonUrl: product?.affilateUrl,
-        image: product?.image
+        url: product?.url || '',
+        title: product?.title || '',
+        price: product?.currentPrice || '',
+        currency: product?.currency || '',
+        reviews: product?.reviewsCount || '',
+        amazonUrl: product?.affilateUrl || '',
+        image: product?.image || ''
     }
 
     // Convert to a JSON-friendly format
@@ -96,7 +96,7 @@ const page = async ({ params: { id } }: Props) => {
                 {/* Track Button */}
                 <Modal productId={id} />
                 {/* Buy Button */}
-                <Link href={product.affilateUrl || product.url} target='_blank' className="bg-gray-900 text-white px-6 py-3 rounded-full mb-4 block w-[130px] text-center my-5 text-sm">
+                <Link href={product.affilateUrl || product.url} target='_blank' className="bg-green-500 text-white px-6 py-3 rounded-full mb-4 block w-[130px] text-center my-5 text-sm">
                     Buy Now
                 </Link>
             </div>
