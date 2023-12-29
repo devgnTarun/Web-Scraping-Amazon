@@ -2,7 +2,6 @@
 
 import { loginUser } from '@/lib/auth';
 import Link from 'next/link'
-import { redirect } from 'next/navigation';
 import { FormEvent, useState } from 'react'
 import toast from 'react-hot-toast';
 const LoginForm = () => {
@@ -22,7 +21,6 @@ const LoginForm = () => {
                 setLoading(false);
                 toast.success('User logged in successfully!'); // Notify success
                 window.location.reload();
-                redirect('/'); // Redirect as needed
             } else {
                 toast.error(response?.message || 'Error occured while log in!'); // Show error message
                 setLoading(false);
