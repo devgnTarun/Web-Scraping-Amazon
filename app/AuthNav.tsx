@@ -1,28 +1,13 @@
-'use client'
-import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { redirect } from 'next/navigation';
+
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
+import { cookies } from 'next/headers'
+import Logout from '@/components/client/Logout';
 
-const AuthNav = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+const AuthNav = async () => {
 
-    useEffect(() => {
-        const authData = typeof window !== 'undefined' && localStorage && localStorage.getItem('auth');
-        setIsLoggedIn(!!authData);
-    }, []);
-
-    const handleLogout = () => {
-        if (isLoggedIn) {
-            localStorage.removeItem('auth');
-            toast.success('You are logged out!');
-            window.location.reload();
-            redirect('/')
-        };
-    };
+    const cookieStore = await cookies();
+    const isLogged = await cookieStore.get('auth');
 
     return (
         <div className="flex items-center gap-5">
@@ -34,10 +19,8 @@ const AuthNav = () => {
                 <Image src={'/assets/icons/black-heart.svg'} alt={'loved'} width={28} height={28} className="object-contain" />
             </Link>
 
-            {isLoggedIn ? (
-                <button onClick={handleLogout} className='bg-red-500 px-3 py-2 rounded-xl text-white'>
-                    <FontAwesomeIcon icon={faRightFromBracket} />
-                </button>
+            {isLogged ? (
+                <Logout />
             ) : (
                 <Link href={'/login'}>
                     <Image src={'/assets/icons/user.svg'} alt={'user'} width={28} height={28} className="object-contain" />

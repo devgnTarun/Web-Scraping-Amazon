@@ -1,6 +1,7 @@
 import User from "@/lib/models/user.model";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
+import { cookies } from 'next/headers'
 
 export async function POST(request: any) {
     const { email, password } = await request.json();
@@ -16,6 +17,10 @@ export async function POST(request: any) {
         const token = await jwt.sign({ id: user._id }, 'somethingfishy', {
             expiresIn: process.env.JWT_EXPIRE,
         });
+
+        const cookieStore = await cookies();
+        cookieStore.set('auth', token);
+
         return NextResponse.json({ token }, { status: 200 })
 
     } catch (error: any) {
