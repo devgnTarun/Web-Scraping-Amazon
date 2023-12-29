@@ -3,7 +3,7 @@
 import { loginUser } from '@/lib/auth';
 import Link from 'next/link'
 import { redirect } from 'next/navigation';
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useState } from 'react'
 import toast from 'react-hot-toast';
 const LoginForm = () => {
     const [email, setEmail] = useState("");
@@ -17,18 +17,19 @@ const LoginForm = () => {
         try {
             setLoading(true);
             const response = await loginUser(email, password);
-            setLoading(false);
 
             if (response.success) {
-                window.location.reload();
+                setLoading(false);
                 toast.success('User logged in successfully!'); // Notify success
+                window.location.reload();
                 redirect('/'); // Redirect as needed
             } else {
                 toast.error(response.message || 'Error occured while log in!'); // Show error message
             }
-        } catch (error) {
+        } catch (error: any) {
             setLoading(false);
-            // Handle other potential errors here
+            toast.error(error?.message);
+            console.log(error)
         }
     }
 
