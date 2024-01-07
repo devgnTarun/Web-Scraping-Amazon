@@ -64,7 +64,7 @@ export async function GET() {
 
                     await sendEmail(emailContent, userEmails);
                 }
-                return updatedProduct;
+                updatedProduct;
             })
         )
         return NextResponse.json({
