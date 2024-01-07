@@ -75,13 +75,13 @@ export async function generateEmailBody(product: EmailProductInfo, type: Notific
   return { subject, body };
 }
 
-const transporter = nodemailer.createTransport({
-  pool: true,
-  service: 'hotmail',
-  port: 2525,
+const trasporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 465,
+  service: "gmail",
   auth: {
-    user: 'devtar28k@outlook.com',
-    pass: process.env.EMAIL_PASSWORD
+    user: "devtar28k@gmail.com",
+    pass: "egemnqsrgirusrop",
   },
 });
 
@@ -95,7 +95,7 @@ export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) =>
       subject: emailContent.subject
     };
 
-    await transporter.sendMail(mailOption, (err, info) => {
+    await trasporter.sendMail(mailOption, (err: any, info: any) => {
       if (err) {
         console.error(err);
       } else {
